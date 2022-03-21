@@ -19,3 +19,4 @@ Route::get('/', function () {
 });
 
 Route::get('/ferramenta1', [MainController::class, 'ferramenta1_form'])->name('ferramenta1_form');
+Route::get('/ferramenta1/calcular', [MainController::class, 'ferramenta1_action'])->name('ferramenta1_action');

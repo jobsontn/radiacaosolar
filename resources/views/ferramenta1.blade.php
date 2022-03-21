@@ -1,27 +1,45 @@
 @extends('master')
 
 @section('content')
-    <form action="">
+    <form action="{{ route('ferramenta1_action') }}" method='GET'>
         <div class="relative w-full mb-3 mt-8">
-            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="latitude">Latitude</label><input type="text" name="latitude" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="Latitude">
+            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="latitude">Latitude</label>
+            <input type="number" name="latitude" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="Latitude">
+            @error('latitude')
+                <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                    {{ $message }}
+                </span>
+            @enderror
         </div>
         <div class="relative w-full mb-3 mt-8">
-            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="longitude">Longitude</label><input type="text" name="longitude" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="Longitude">
+            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="longitude">Longitude</label>
+            <input type="number" name="longitude" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="Longitude">
+            @error('longitude')
+                <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                    {{ $message }}
+                </span>
+            @enderror
         </div>
         <div class="relative w-full mb-3 mt-8">
-            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="inclinacao">Inclinação</label><input type="text" name="inclinacao" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="Inclinação">
+            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="inclinacao">Inclinação</label>
+            <input type="range" min="0" max="90" value="0" name="inclinacao" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="Inclinação">
+             @error('inclinacao')
+                <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                    {{ $message }}
+                </span>
+            @enderror
         </div>
         <div class="relative w-full mb-3 mt-8">
-            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="orientacao">Orientação</label><input type="text" name="orientacao" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="Orientação">
+            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="orientacao">Orientação</label>
+            <input type="range" min="0" max="360" value="0" name="orientacao" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="Orientação">
+             @error('orientacao')
+                <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                    {{ $message }}
+                </span>
+            @enderror
         </div>
-        {{-- <div class="relative w-full mb-3">
-            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="email">Email</label><input type="email" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="Email">
-        </div>
-        <div class="relative w-full mb-3">
-            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="message">Message</label><textarea rows="4" cols="80" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full" placeholder="Type a message..."></textarea>
-        </div> --}}
         <div class="text-center mt-6">
-            <button class="bg-blue-800 text-white active:bg-blue-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+            <button class="bg-blue-800 text-white active:bg-blue-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="submit">
             Calcular
             </button>
         </div>
