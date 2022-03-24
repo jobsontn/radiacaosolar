@@ -17,3 +17,25 @@ class MainController extends Controller
         dd("Teste", $validated);
     }
 }
+function ktkddiario($KT)
+{
+    $KD = 0;
+    if(0.17 <= $KT && $KT <= 0.75){
+        $KD = (1.188-2.272*$KT+9.473*($KT)^2-21.856*($KT)^3+14.648*($KT)^4);
+    }
+    if(0.75 < $KT && $KT <= 0.8){
+        $KD = 0.632-0.54*$KT;
+    }
+    if( $KT > 0.8){
+        $KD = 0.2;
+    }
+    if($KT < 0.17){
+        $KD = 0.99;
+    }
+    return $KD;
+}
+function Costetasexp($Declinacao,$Latitude,$Betaa,$Azimute,$W)
+{
+    $Costetas = sin($Declinacao)*sin($Latitude)*cos($Betaa)-sin($Declinacao)*cos($Latitude)*sin($Betaa)*cos($Azimute)+cos($Declinacao)*cos($Latitude)*cos($Betaa)*cos($W)+ cos($Declinacao)*sin($Latitude)*sin($Betaa)*cos($Azimute)*cos($W)+cos($Declinacao)*sin($Betaa)*sin($Azimute)*sin($W);
+    return $Costetas;
+}
