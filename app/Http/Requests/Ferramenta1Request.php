@@ -26,8 +26,8 @@ class Ferramenta1Request extends FormRequest
         return [
             'latitude' => 'required|numeric|between:-90,90',
             'longitude' => 'required|numeric|between:-180,180',
-            'inclinacao' => 'required|between:0,90',
-            'orientacao' => 'required|between:0,360'
+            'inclinacao' => 'required|numeric|between:0,90',
+            'orientacao' => 'required|numeric|between:0,360'
         ];
     }
     public function messages()
