@@ -23,6 +23,13 @@ class Radiacao extends Model
         '09_sep',
         '10_oct',
         '11_nov',
-        '12_dez'
+        '12_dez',
+       /*  'longitude2',
+        'latitude2',
+        'd_longitude',
+        'd_latitude',
+        'A',
+        'C',
+        'D' */
     ];
 }

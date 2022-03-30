@@ -15,8 +15,8 @@ class CreateRadiacaosTable extends Migration
     {
         Schema::create('radiacaos', function (Blueprint $table) {
             $table->id();
-            $table->double('longitude');
-            $table->double('latitude');
+            $table->decimal('longitude', 14, 10);
+            $table->decimal('latitude', 14 , 10);
             $table->integer('00_ANNUAL');
             $table->integer('01_JAN');
             $table->integer('02_FEB');
@@ -30,6 +30,13 @@ class CreateRadiacaosTable extends Migration
             $table->integer('10_OCT');
             $table->integer('11_NOV');
             $table->integer('12_DEZ');
+            $table->decimal('longitude2', 14 , 10)->nullable();
+            $table->decimal('latitude2', 14 , 10)->nullable();
+            $table->decimal('d_longitude', 14 , 10)->nullable();
+            $table->decimal('d_latitude', 14 , 10)->nullable();
+            $table->decimal('A')->nullable();
+            $table->decimal('C')->nullable();
+            $table->decimal('D')->nullable();
             $table->timestamps();
         });
     }
