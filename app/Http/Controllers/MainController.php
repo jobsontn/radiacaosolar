@@ -84,11 +84,36 @@ class MainController extends Controller
         );
         
         $proximo = array_key_first($data);
-        //$proximo = array_search(array_pop($data));
+        
+        //dd($proximo, $data[$proximo]);
 
-        //dd($data[$proximo]);
-        //dd($data);
-        dd($proximo, $data[$proximo]);
+        $radiacao = Radiacao::find($proximo + 1)->toArray();
+
+        //dd($radiacao);
+
+        //área das constantes
+        $Hm=[
+            $radiacao['01_JAN'], 
+            $radiacao['02_FEB'],
+            $radiacao['03_MAR'],
+            $radiacao['04_APR'],
+            $radiacao['05_MAY'],
+            $radiacao['06_JUN'],
+            $radiacao['07_JUL'],
+            $radiacao['08_AUG'],
+            $radiacao['09_SEP'],
+            $radiacao['10_OCT'],
+            $radiacao['11_NOV'],
+            $radiacao['12_DEZ']
+        ];
+        $i0 = 1367;  // em w/m2
+        $HS=[5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+        $diajul = [15,45,74,105,135,166,196,227,258,288,319,349];
+        $reflexao = 0.2;      //Albedo
+
+        dd($Hm, $i0, $HS, $diajul, $reflexao);
+
+        //fim da área das constantes
 
         return 10;
     }

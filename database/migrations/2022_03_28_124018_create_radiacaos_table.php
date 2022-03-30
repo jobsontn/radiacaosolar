@@ -32,11 +32,6 @@ class CreateRadiacaosTable extends Migration
             $table->integer('12_DEZ');
             $table->decimal('longitude2', 14 , 10)->nullable();
             $table->decimal('latitude2', 14 , 10)->nullable();
-            $table->decimal('d_longitude', 14 , 10)->nullable();
-            $table->decimal('d_latitude', 14 , 10)->nullable();
-            $table->decimal('A')->nullable();
-            $table->decimal('C')->nullable();
-            $table->decimal('D')->nullable();
             $table->timestamps();
         });
     }
