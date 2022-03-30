@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use  \App\Http\Requests\Ferramenta1Request;
+use App\Models\Radiacao;
 
 class MainController extends Controller
 {
@@ -15,7 +16,83 @@ class MainController extends Controller
     {
         $validated = $request->validated();
         dd("Teste", $validated);
+
     }
+
+    public function teste()
+    {
+        $latitude = 0.5166399;
+        $longitude = -66.2440148;
+        $inclinacao = 30;
+        $orientacao = 60;
+        
+        $latitude = deg2rad($latitude);
+        $longitude = deg2rad($longitude);
+        $raio_da_terra = 6371; // km
+
+        //$data = Radiacao::select('latitude2', 'longitude2')->limit(50)->get()->toArray();
+        $data = Radiacao::select('latitude2', 'longitude2')->get()->toArray();
+
+        //dd($data);
+
+        $data = array_map(fn($valor): array => [
+            'latitude2' => $valor['latitude2'],
+            'longitude2' => $valor['longitude2'],                                  
+            'dLat' => $valor['latitude2'] - $latitude, 
+            'dLon' => $valor['longitude2'] - $longitude, 
+            'A' => 0, 
+            'C' => 0, 
+            'D' => 0
+        ], $data);
+
+        $data = array_map(fn($valor): array => [
+            'latitude2' => $valor['latitude2'],
+            'longitude2' => $valor['longitude2'],                                   
+            'dLat' => $valor['dLat'], 
+            'dLon' => $valor['dLon'], 
+            'A' => sin($valor['dLat']/2) * sin($valor['dLat']/2) + cos($latitude) * cos($valor['latitude2']) * sin($valor['dLon']/2) * sin($valor['dLon']/2), 
+            'C' => 0, 
+            'D' => 0
+        ], $data);
+
+        $data = array_map(fn($valor): array => [
+            'latitude2' => $valor['latitude2'],
+            'longitude2' => $valor['longitude2'],                                   
+            'dLat' => $valor['dLat'], 
+            'dLon' => $valor['dLon'], 
+            'A' => $valor['A'], 
+            'C' => 2 * atan2(sqrt($valor['A']),sqrt(1-$valor['A'])), 
+            'D' => 0
+        ], $data);
+        
+        $data = array_map(fn($valor): array => [
+            'latitude2' => $valor['latitude2'],
+            'longitude2' => $valor['longitude2'],                                   
+            'dLat' => $valor['dLat'], 
+            'dLon' => $valor['dLon'], 
+            'A' => $valor['A'], 
+            'C' => $valor['C'], 
+            'D' => $raio_da_terra * $valor['C']
+        ], $data);
+
+        uasort ( $data , function ($a, $b) {
+                if($a['D'] == $b['D']) {
+                    return 0;
+                }
+                return ($a['D'] < $b['D']) ? -1 : 1;
+            }
+        );
+        
+        $proximo = array_key_first($data);
+        //$proximo = array_search(array_pop($data));
+
+        //dd($data[$proximo]);
+        //dd($data);
+        dd($proximo, $data[$proximo]);
+
+        return 10;
+    }
+
 }
 function ktkddiario($KT)
 {
