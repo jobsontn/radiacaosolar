@@ -111,7 +111,14 @@ class MainController extends Controller
         $diajul = [15,45,74,105,135,166,196,227,258,288,319,349];
         $reflexao = 0.2;      //Albedo
 
-        dd($Hm, $i0, $HS, $diajul, $reflexao);
+        //dd($Hm, $i0, $HS, $diajul, $reflexao);
+
+        for ($i = 0; $i < 12; $i++){
+            $declinacao[$i] = rad2deg(asin((-1*sin(deg2rad(23.45)))*cos((deg2rad(1))*(360/365.25)*($diajul[$i]+10))));
+
+        }
+
+        dd($declinacao);
 
         //fim da área das constantes
 
