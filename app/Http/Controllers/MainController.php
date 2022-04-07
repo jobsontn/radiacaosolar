@@ -12,6 +12,10 @@ class MainController extends Controller
     {
         return view('ferramenta1');
     }
+    public function ferramenta1_form_admin()
+    {
+        return view('ferramenta1_form_admin');
+    }
     public function ferramenta1_action(Ferramenta1Request $request)
     {
         $validated = $request->validated();
@@ -25,7 +29,7 @@ class MainController extends Controller
         $longitude = -66.2440148;
         $inclinacao = 30;
         $orientacao = 60;
-        
+
         $latitude = deg2rad($latitude);
         $longitude = deg2rad($longitude);
         $raio_da_terra = 6371; // km
@@ -37,41 +41,41 @@ class MainController extends Controller
 
         $data = array_map(fn($valor): array => [
             'latitude2' => $valor['latitude2'],
-            'longitude2' => $valor['longitude2'],                                  
-            'dLat' => $valor['latitude2'] - $latitude, 
-            'dLon' => $valor['longitude2'] - $longitude, 
-            'A' => 0, 
-            'C' => 0, 
+            'longitude2' => $valor['longitude2'],
+            'dLat' => $valor['latitude2'] - $latitude,
+            'dLon' => $valor['longitude2'] - $longitude,
+            'A' => 0,
+            'C' => 0,
             'D' => 0
         ], $data);
 
         $data = array_map(fn($valor): array => [
             'latitude2' => $valor['latitude2'],
-            'longitude2' => $valor['longitude2'],                                   
-            'dLat' => $valor['dLat'], 
-            'dLon' => $valor['dLon'], 
-            'A' => sin($valor['dLat']/2) * sin($valor['dLat']/2) + cos($latitude) * cos($valor['latitude2']) * sin($valor['dLon']/2) * sin($valor['dLon']/2), 
-            'C' => 0, 
+            'longitude2' => $valor['longitude2'],
+            'dLat' => $valor['dLat'],
+            'dLon' => $valor['dLon'],
+            'A' => sin($valor['dLat']/2) * sin($valor['dLat']/2) + cos($latitude) * cos($valor['latitude2']) * sin($valor['dLon']/2) * sin($valor['dLon']/2),
+            'C' => 0,
             'D' => 0
         ], $data);
 
         $data = array_map(fn($valor): array => [
             'latitude2' => $valor['latitude2'],
-            'longitude2' => $valor['longitude2'],                                   
-            'dLat' => $valor['dLat'], 
-            'dLon' => $valor['dLon'], 
-            'A' => $valor['A'], 
-            'C' => 2 * atan2(sqrt($valor['A']),sqrt(1-$valor['A'])), 
+            'longitude2' => $valor['longitude2'],
+            'dLat' => $valor['dLat'],
+            'dLon' => $valor['dLon'],
+            'A' => $valor['A'],
+            'C' => 2 * atan2(sqrt($valor['A']),sqrt(1-$valor['A'])),
             'D' => 0
         ], $data);
-        
+
         $data = array_map(fn($valor): array => [
             'latitude2' => $valor['latitude2'],
-            'longitude2' => $valor['longitude2'],                                   
-            'dLat' => $valor['dLat'], 
-            'dLon' => $valor['dLon'], 
-            'A' => $valor['A'], 
-            'C' => $valor['C'], 
+            'longitude2' => $valor['longitude2'],
+            'dLat' => $valor['dLat'],
+            'dLon' => $valor['dLon'],
+            'A' => $valor['A'],
+            'C' => $valor['C'],
             'D' => $raio_da_terra * $valor['C']
         ], $data);
 
@@ -82,9 +86,9 @@ class MainController extends Controller
                 return ($a['D'] < $b['D']) ? -1 : 1;
             }
         );
-        
+
         $proximo = array_key_first($data);
-        
+
         //dd($proximo, $data[$proximo]);
 
         $radiacao = Radiacao::find($proximo + 1)->toArray();
@@ -93,7 +97,7 @@ class MainController extends Controller
 
         //área das constantes
         $Hm=[
-            $radiacao['01_JAN'], 
+            $radiacao['01_JAN'],
             $radiacao['02_FEB'],
             $radiacao['03_MAR'],
             $radiacao['04_APR'],

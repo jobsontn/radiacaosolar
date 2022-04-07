@@ -18,6 +18,7 @@ Route::get('/', function () {
     return view('welcome2');
 });
 
+Route::get('/', [MainController::class, 'ferramenta1_form_admin'])->name('ferramenta1_form_admin');
 Route::get('/ferramenta1', [MainController::class, 'ferramenta1_form'])->name('ferramenta1_form');
 Route::get('/ferramenta1/calcular', [MainController::class, 'ferramenta1_action'])->name('ferramenta1_action');
 Route::get('/teste', [MainController::class, 'teste'])->name('Teste');
