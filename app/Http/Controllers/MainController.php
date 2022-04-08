@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use  \App\Http\Requests\Ferramenta1Request;
 use App\Models\Radiacao;
+use Carbon\Carbon;
 
 class MainController extends Controller
 {
@@ -131,16 +132,25 @@ class MainController extends Controller
     public function ferramenta1_action(Ferramenta1Request $request)
     {
         $validated = $request->validated();
+        $mediadiariahorizontal = 8.5;
+        //dd($validated);
+        $resultado = $this->calculo_radiacao($validated['latitude'], $validated['longitude'], $validated['inclinacao'], $validated['orientacao']);
+        //dd($resultado);
+        return view('ferramenta1_form_admin')
+                ->with($validated)
+                ->with( compact('mediadiariahorizontal'))
+                ->with( $resultado);
         dd("Teste", $validated);
 
     }
 
-    public function teste()
+    public function calculo_radiacao($latitude, $longitude, $inclinacao, $orientacao )
     {
-        $latitude = 0.5166399;
+        $start = Carbon::now();
+        /* $latitude = 0.5166399;
         $longitude = -66.2440148;
         $inclinacao = 30; //betaa
-        $orientacao = 60; //azimute
+        $orientacao = 60; //azimute */
         
         $latitude = deg2rad($latitude);
         $longitude = deg2rad($longitude);
@@ -318,7 +328,7 @@ class MainController extends Controller
                 }
             }
         }
-        dd($lambda);
+        //dd($lambda);
 
         $sum = function ($carry, $item) {
             $carry += $item;
@@ -366,13 +376,17 @@ class MainController extends Controller
         $mediadiaria = array_sum($diario)/count($diario);
 
 
+        $stop = Carbon::now();
+        $duration = $start->diff($stop);
+        //$duration = $start->diffForHumans($stop);
+        $diff = $duration->format("%ss.%f");
         //dd($declinacao, $h0, $KT, $latitude1);
-        dd($mediadiariahorizontal, $mediadiaria);
+        //dd($mediadiariahorizontal, $mediadiaria, $diff);
 
 
         //fim da área das constantes
 
-        return 10;
+        return compact('diff', 'mediadiariahorizontal', 'mediadiaria');
     }
 
 }

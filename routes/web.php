@@ -14,9 +14,9 @@ use App\Http\Controllers\MainController;
 |
 */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('welcome2');
-});
+}); */
 
 Route::get('/', [MainController::class, 'ferramenta1_form_admin'])->name('ferramenta1_form_admin');
 Route::get('/ferramenta1', [MainController::class, 'ferramenta1_form'])->name('ferramenta1_form');
