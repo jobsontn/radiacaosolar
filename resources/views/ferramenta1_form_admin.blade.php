@@ -63,7 +63,7 @@
                             </div>
                     @enderror
                 </div>
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="submit" class="btn btn-primary">Calcular</button>
             </form>
         </div>
         <div class="col col-lg-5 col-12 offset-md-1">
@@ -74,7 +74,7 @@
                 <p><strong>Orientação:</strong> {{ $orientacao }}</p>
                 <p><strong>Duração:</strong> {{ $diff }}</p>
                 <p><strong>Média diária horizontal:</strong> {{ $mediadiariahorizontal }}</p>
-                <p><strong>Média diária:</strong> {{ $mediadiaria }}</p>
+                <p><strong>Média diária inclinada:</strong> {{ $mediadiaria }}</p>
                 
             @endif
         </div>
