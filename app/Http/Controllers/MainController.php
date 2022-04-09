@@ -14,7 +14,7 @@ class MainController extends Controller
     function sind($angulo){
         return  sin(deg2rad($angulo));
     }
-    
+
     function asind($angulo){
         return rad2deg(asin($angulo));
     }
@@ -67,18 +67,18 @@ class MainController extends Controller
                     *sind(W) */
         $Costetas = $this->sind($Declinacao)
                         * $this->sind($Latitude)
-                        * $this->cosd($Betaa) - $this->sind($Declinacao) 
-                        * $this->cosd($Latitude) 
-                        * $this->sind($Betaa) 
-                        * $this->cosd($Azimute) + $this->cosd($Declinacao) 
-                        * $this->cosd($Latitude) 
-                        * $this->cosd($Betaa) 
+                        * $this->cosd($Betaa) - $this->sind($Declinacao)
+                        * $this->cosd($Latitude)
+                        * $this->sind($Betaa)
+                        * $this->cosd($Azimute) + $this->cosd($Declinacao)
+                        * $this->cosd($Latitude)
+                        * $this->cosd($Betaa)
                         * $this->cosd($W) + $this->cosd($Declinacao)
                         * $this->sind($Latitude)
-                        * $this->sind($Betaa) 
+                        * $this->sind($Betaa)
                         * $this->cosd($Azimute)
                         * $this->cosd($W) + $this->cosd($Declinacao)
-                        * $this->sind($Betaa) 
+                        * $this->sind($Betaa)
                         * $this->sind($Azimute)
                         * $this->sind($W);
         return $Costetas;
@@ -151,7 +151,7 @@ class MainController extends Controller
         $longitude = -66.2440148;
         $inclinacao = 30; //betaa
         $orientacao = 60; //azimute */
-        
+
         $latitude = deg2rad($latitude);
         $longitude = deg2rad($longitude);
         $raio_da_terra = 6371; // km
@@ -266,8 +266,8 @@ class MainController extends Controller
                 }
                 //i0efetivo(i,j) = i0*e0(i)
                 $i0efetivo[$i][$j] = $i0 * $e0[$i];
-                //rr(i,j) = (1 - cosd(betaa))/2       // Gueymard 
-                $rr[$i][$j] = (1 - $this->cosd($inclinacao)) / 2;  // Gueymard 
+                //rr(i,j) = (1 - cosd(betaa))/2       // Gueymard
+                $rr[$i][$j] = (1 - $this->cosd($inclinacao)) / 2;  // Gueymard
             }
         }
 
@@ -310,7 +310,7 @@ class MainController extends Controller
                 }
 
                 //lambda(i,j) =(rand()*(1+1)-1) //-1 até 1
-                $lambda[$i][$j] = mt_rand (-100000, 100000) / 100000; // -1 até 1 
+                $lambda[$i][$j] = mt_rand (-100000, 100000) / 100000; // -1 até 1
 
                 //ktm(i,j) = I(i,j)/(i0efetivo(i,j)*costetaz(i,j));//kt horário não aleatório
                 $ktm[$i][$j] = $I[$i][$j] / ( $i0efetivo[$i][$j] * $costetaz[$i][$j]); //kt horário não aleatório
@@ -386,7 +386,7 @@ class MainController extends Controller
 
         //fim da área das constantes
 
-        return compact('diff', 'mediadiariahorizontal', 'mediadiaria');
+        return compact('diff', 'mediadiariahorizontal', 'mediadiaria', 'Hm', 'diario');
     }
 
 }
