@@ -66,6 +66,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Calcular</button>
             </form>
+            <br>
         </div>
         <!-- <div class="col col-lg-8 col-12 offset-md-1"> -->
         <div class="col col-lg-8 col-12" style="padding-left: 30px;">
