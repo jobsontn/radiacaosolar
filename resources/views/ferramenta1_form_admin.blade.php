@@ -180,7 +180,7 @@
             var options = {
                 chart: {
                     title: ' Irradiação  solar',
-                    subtitle: ' média mensal em kWh/m²'
+                    subtitle: ' média mensal em Wh/m²'
                 },
                 //width: 850,
                 height: 300,
