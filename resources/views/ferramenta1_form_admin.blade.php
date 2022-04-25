@@ -77,7 +77,7 @@
                 <!-- <p><strong>Tempo de processamento:</strong> {{ $diff }}</p> -->
                 <p><strong>Média diária horizontal:</strong> {{ number_format($mediadiariahorizontal, 1, '.', '') }}</p>
                 <p><strong>Média diária inclinada:</strong> {{ number_format($mediadiaria, 1, '.', '') }}</p>
-                <div class="table-responsive d-sm-none d-md-block">
+                <div class="table-responsive d-none d-md-block">
                     <table class="table table-sm table-hover table-bordered">
                     <thead class="thead-dark">
                         <tr>
@@ -142,6 +142,12 @@
                     </tbody>
                     </table>
                 </div>
+                
+                <div class="d-none d-md-block" id="chart_div"></div>
+                
+                <div class="d-sm-block d-md-none" style="width: 100%; overflow: scroll">
+                    <div id="chart_div2" style="width: 850px"></div>
+                </div>
             @endif
         </div>
     </div>
@@ -152,5 +158,40 @@
 @stop
 
 @section('js')
+    @if(isset($mediadiariahorizontal))    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', {'packages':['line']});
+        google.charts.setOnLoadCallback(drawChart);
+        var meses = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez', 'média'];
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Mês');
+            data.addColumn('number', 'Plano Horizontal');
+            data.addColumn('number', 'Plano Inclinado');
 
+            data.addRows([
+                @for ($i = 0; $i < 12; $i++)
+                    [meses[{{ $i }}], {{ number_format($Hm[$i], 1, '.', '') }}, {{ number_format($diario[$i], 1, '.', '') }}],
+                @endfor
+                [meses[12], {{ number_format($mediadiariahorizontal, 1, '.', '') }}, {{ number_format($mediadiaria, 1, '.', '') }}]
+            ]);
+
+            var options = {
+                chart: {
+                    title: ' Irradiação  solar',
+                    subtitle: ' média mensal em kWh/m²'
+                },
+                //width: 850,
+                height: 300,
+                vAxis: { format: '0.0 kWh/m²' }
+            };
+
+            var chart = new google.charts.Line(document.getElementById('chart_div'));
+            var chart2 = new google.charts.Line(document.getElementById('chart_div2'));
+            chart.draw(data, google.charts.Line.convertOptions(options));
+            chart2.draw(data, google.charts.Line.convertOptions(options));
+        }
+    </script>
+    @endif
 @stop
