@@ -14,7 +14,7 @@
                 <div class="form-group has-validation">
                     <label for="latitude">Latitude</label>
                     <input type="number" step="0.0000000001" class="form-control" id="latitude" name="latitude" aria-describedby="latitudeHelp" value="{{old('latitude')}}" required>
-                    <small id="latitudeHelp" class="form-text text-muted">Deve ser informado um valor numérico entre -90 e 90</small>
+                    <small id="latitudeHelp" class="form-text text-muted">Deve ser informado um valor numérico entre -34° e 6°</small>
                     @error('latitude')
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 {{ $message }}
@@ -27,7 +27,7 @@
                 <div class="form-group">
                     <label for="longitude">Longitude</label>
                     <input type="number" step="0.0000000001" class="form-control" id="longitude" name="longitude" aria-describedby="longitudeHelp" value="{{old('longitude')}}" required>
-                    <small id="longitudeHelp" class="form-text text-muted">Deve ser informado um valor numérico entre -180 e 180</small>
+                    <small id="longitudeHelp" class="form-text text-muted">Deve ser informado um valor numérico entre -74° e -33°</small>
                     @error('longitude')
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 {{ $message }}
@@ -40,7 +40,7 @@
                 <div class="form-group">
                     <label for="inclinacao">Inclinação</label>
                     <input type="number" class="form-control" id="inclinacao" name="inclinacao" aria-describedby="inclinacaoHelp" value="{{old('inclinacao')}}" required>
-                    <small id="inclinacaoHelp" class="form-text text-muted">Deve ser informado um valor numérico entre 0 e 90</small>
+                    <small id="inclinacaoHelp" class="form-text text-muted">Deve ser informado um valor numérico entre 0° e 90°</small>
                     @error('inclinacao')
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 {{ $message }}
@@ -53,7 +53,8 @@
                 <div class="form-group">
                     <label for="orientacao">Orientação</label>
                     <input type="number" class="form-control" id="orientacao" name="orientacao" aria-describedby="orientacaoHelp" value="{{old('orientacao')}}" required>
-                    <small id="orientacaoHelp" class="form-text text-muted">Deve ser informado um valor numérico entre 0 e 360</small>
+                    <small id="orientacaoHelp" class="form-text text-muted">Deve ser informado um valor numérico entre 0° e 360°</small>
+                    <img src="{{ asset('img/rosa_dos_ventos.png') }}" alt="Rosa dos Ventos" style="width: 80%; margin: 1rem auto; display: block;" >
                     @error('orientacao')
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 {{ $message }}
@@ -63,7 +64,7 @@
                             </div>
                     @enderror
                 </div>
-                <button type="submit" class="btn btn-primary">Calcular</button>
+                <button type="submit" class="btn btn-primary btn-block">Calcular</button>
             </form>
         </div>
         <!-- <div class="col col-lg-8 col-12 offset-md-1"> -->
@@ -73,7 +74,7 @@
                 <p><strong>Longitude:</strong> {{ number_format($longitude, 1, '.', '') }}</p>
                 <p><strong>Inclinação:</strong> {{ number_format($inclinacao, 1, '.', '') }}</p>
                 <p><strong>Orientação:</strong> {{ number_format($orientacao, 1, '.', '') }}</p>
-                <p><strong>Tempo de processamento:</strong> {{ $diff }}</p>
+                <!-- <p><strong>Tempo de processamento:</strong> {{ $diff }}</p> -->
                 <p><strong>Média diária horizontal:</strong> {{ number_format($mediadiariahorizontal, 1, '.', '') }}</p>
                 <p><strong>Média diária inclinada:</strong> {{ number_format($mediadiaria, 1, '.', '') }}</p>
                 <div class="table-responsive d-sm-none d-md-block">

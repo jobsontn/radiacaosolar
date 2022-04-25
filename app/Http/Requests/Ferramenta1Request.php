@@ -24,8 +24,8 @@ class Ferramenta1Request extends FormRequest
     public function rules()
     {
         return [
-            'latitude' => 'required|numeric|between:-90,90',
-            'longitude' => 'required|numeric|between:-180,180',
+            'latitude' => 'required|numeric|between:-34,6',
+            'longitude' => 'required|numeric|between:-74,-33',
             'inclinacao' => 'required|numeric|between:0,90',
             'orientacao' => 'required|numeric|between:0,360'
         ];
@@ -34,10 +34,10 @@ class Ferramenta1Request extends FormRequest
     {
         return [
             '*.required' => 'Este campo é obrigatório para o calculo',
-            'latitude.between' => 'A latitude deve estar entre -90 e 90',
-            'longitude.between' => 'A longitude deve estar entre -180 e 180',
-            'inclinacao.between' => 'A inclinação deve estar entre 0 e 90',
-            'orientacao.between' => 'A inclinação deve estar entre 0 e 360'
+            'latitude.between' => 'A latitude deve estar entre -34° e 6°',
+            'longitude.between' => 'A longitude deve estar entre -74° e -33°',
+            'inclinacao.between' => 'A inclinação deve estar entre 0° e 90°',
+            'orientacao.between' => 'A inclinação deve estar entre 0° e 360°'
         ];
     }
     
