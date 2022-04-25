@@ -119,6 +119,228 @@ class MainController extends Controller
         return $Idale;
     }
 
+    function transposicaoPerez1($idale,$tetaz,$tetas,$i0efetivo,$Ialecorrigido, $betaa) {
+        //tetaz e tetas entram em radianos
+        //alpha = 25 * (%pi/180)
+        $alpha = deg2rad(25);
+        //betaa = betaa * (%pi/180)
+        $betaa = deg2rad(betaa);
+
+        /* if idale >0 then        //Consideração 1 que idale seja maior que 0 para a equação não tender a infinito
+            elinha = (idale+Ialecorrigido)/idale
+        else
+            elinha = 0
+        end
+        delta = idale/(i0efetivo*cos(tetaz))*/
+        if ($idale > 0) {        //Consideração 1 que idale seja maior que 0 para a equação não tender a infinito
+            $elinha = ($idale + $Ialecorrigido) / $idale;
+        } else {
+            $elinha = 0;
+        }
+        $delta = $idale / ($i0efetivo * cos($tetaz));
+        /* if 1<= elinha & elinha < 1.056 then
+            F11 = -0.011
+            F12 = 0.748
+            F13 =-0.080
+            F21 = -0.048
+            F22 = 0.073
+            F23 = -0.024
+        end */
+        if (1 <= $elinha && $elinha < 1.056){
+            $F11 = -0.011;
+            $F12 = 0.748;
+            $F13 =-0.080;
+            $F21 = -0.048;
+            $F22 = 0.073;
+            $F23 = -0.024;
+        }
+        /* if 1.056<= elinha  & elinha <1.253 then
+            F11 = -0.038
+            F12 = 1.115
+            F13 = -0.109
+            F21 = -0.023
+            F22 = 0.106
+            F23 = -0.037
+        end */
+        if (1.056 <= $elinha  && $elinha < 1.253){
+            $F11 = -0.038;
+            $F12 = 1.115;
+            $F13 = -0.109;
+            $F21 = -0.023;
+            $F22 = 0.106;
+            $F23 = -0.037;
+        }
+        /* if 1.253<= elinha  & elinha <1.586 then
+            F11 = 0.166
+            F12 = 0.909
+            F13 = -0.179
+            F21 = 0.062
+            F22 = -0.021
+            F23 = -0.050
+        end */
+        if (1.253 <= $elinha  && $elinha < 1.586){
+            $F11 = 0.166;
+            $F12 = 0.909;
+            $F13 = -0.179;
+            $F21 = 0.062;
+            $F22 = -0.021;
+            $F23 = -0.050;
+        }
+        /* if 1.586<= elinha & elinha <2.134 then
+            F11 = 0.419
+            F12 = 0.646
+            F13 = -0.262
+            F21 = 0.140
+            F22 = -0.167
+            F23 = -0.042
+        end */
+        if (1.586 <= $elinha && $elinha < 2.134) {
+            $F11 = 0.419;
+            $F12 = 0.646;
+            $F13 = -0.262;
+            $F21 = 0.140;
+            $F22 = -0.167;
+            $F23 = -0.042;
+        }
+        /* if 2.134<= elinha & elinha <3.23 then
+            F11 = 0.710
+            F12 = 0.025
+            F13 = -0.290
+            F21 = 0.243
+            F22 = -0.511
+            F23 = -0.004
+        end */
+        if (2.134<= $elinha && $elinha < 3.23) {
+            $F11 = 0.710;
+            $F12 = 0.025;
+            $F13 = -0.290;
+            $F21 = 0.243;
+            $F22 = -0.511;
+            $F23 = -0.004;
+        }
+        /* if 3.23 <= elinha & elinha <5.98 then
+            F11 = 0.857
+            F12 = -0.370
+            F13 = -0.279
+            F21 = 0.267
+            F22 = -0.792
+            F23 = 0.076
+        end */
+        if (3.23 <= $elinha && $elinha < 5.98) {
+            $F11 = 0.857;
+            $F12 = -0.370;
+            $F13 = -0.279;
+            $F21 = 0.267;
+            $F22 = -0.792;
+            $F23 = 0.076;
+        }
+        /* if 5.98<= elinha & elinha <10.08 then
+            F11 = 0.743
+            F12 = -0.073
+            F13 = -0.228
+            F21 = 0.231
+            F22 = -1.180
+            F23 = 0.199
+        end */
+        if (5.98 <= $elinha && $elinha < 10.08) {
+            $F11 = 0.743;
+            $F12 = -0.073;
+            $F13 = -0.228;
+            $F21 = 0.231;
+            $F22 = -1.180;
+            $F23 = 0.199;
+        }
+        /* if 10.08< elinha then
+            F11 = 0.421
+            F12 = -0.661
+            F13 = 0.097
+            F21 = 0.119
+            F22 = -2.125
+            F23 = 0.446
+        end */
+        if (10.08 < $elinha) {
+            $F11 = 0.421;
+            $F12 = -0.661;
+            $F13 = 0.097;
+            $F21 = 0.119;
+            $F22 = -2.125;
+            $F23 = 0.446;
+        }
+        /* if elinha <> 0  then
+            F2 = F21 + delta*F22+ tetaz* F23
+            F1 = F11 + delta*F12+tetaz*F13
+            if F1<= 0 then
+                F1=0
+            end
+            if ((%pi/2)-alpha) < tetaz then
+                Phi_h = ((%pi/2)-tetaz+alpha)/(2*alpha)
+            else
+                Phi_h = 1
+            end
+            Phi_c = ((%pi/2)-tetas+alpha)/(2*alpha)
+
+            if tetaz < ((%pi/2)-alpha) then
+                Xh = cos(tetaz)
+            else
+                Xh = Phi_h * sin(Phi_h*alpha)
+            end
+
+            if tetas < ((%pi/2)-alpha) then
+                Xc = Phi_h * cos(tetas)
+            elseif tetas > ((%pi/2)-alpha) & tetas <= ((%pi/2)+alpha) then
+                Xc = Phi_h * Phi_c * sin(Phi_c * alpha)
+            else
+                Xc = 0
+            end
+            clinha = 2*Xh*(1-cos(alpha))
+            alinha = 2*Xc*(1-cos(alpha))
+
+            Rd_Perez1 = (1-F1)*((1+cos(betaa))/2)+ F1*(alinha/clinha) + F2*sin(betaa)
+        else
+             Rd_Perez1 = 0
+        end */
+        if ($elinha <> 0){
+            $F2 = $F21 + $delta * $F22 + $tetaz * $F23;
+            $F1 = $F11 + $delta * $F12 + $tetaz * $F13;
+            if ($F1 <= 0) {
+                $F1 = 0;
+            }
+            if (((pi() / 2) - $alpha) < $tetaz) {
+                $Phi_h = ((pi()/2) - $tetaz + $alpha) / (2 * $alpha);
+            } else {
+                $Phi_h = 1;
+            }
+            $Phi_c = ((pi() / 2) - $tetas + $alpha) / (2 * $alpha);
+
+            if ($tetaz < ((pi() / 2 ) - $alpha)) {
+                $Xh = cos($tetaz);
+            } else {
+                $Xh = $Phi_h * sin($Phi_h * $alpha);
+            }
+
+            if ($tetas < ((pi()/2) - $alpha)) {
+                $Xc = $Phi_h * cos($tetas);
+            } elseif ($tetas > ((pi() / 2) - $alpha) && $tetas <= ((pi() / 2) + $alpha)) {
+                $Xc = $Phi_h * $Phi_c * sin($Phi_c * $alpha);
+            } else {
+                $Xc = 0;
+            }
+            $clinha = 2 * $Xh *(1 - cos($alpha));
+            $alinha = 2 * $Xc *(1 - cos($alpha));
+
+            $Rd_Perez1 = (1 - $F1) * ((1 + cos($betaa)) / 2)+ $F1 * ($alinha / $clinha) + $F2 * sin($betaa);
+        } else {
+            $Rd_Perez1 = 0;
+        }
+
+
+        /* if betaa - 0 then
+            Rd_Perez1 = 1
+        end */
+        return $Rd_Perez1;
+    }
+
+
     /* ------------------------------------------------------------------------------------ */
 
     public function ferramenta1_form()
