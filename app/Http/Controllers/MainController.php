@@ -114,7 +114,7 @@ class MainController extends Controller
             $Idale=$Ialecorrigido*(1-0.09*$ktalee);
         }
         if($ktalee>0.8){
-            $Idale= 0.165;
+            $Idale = $Ialecorrigido*0.165; //Corrigido por Manoel
         }
         return $Idale;
     }
@@ -124,7 +124,7 @@ class MainController extends Controller
         //alpha = 25 * (%pi/180)
         $alpha = deg2rad(25);
         //betaa = betaa * (%pi/180)
-        $betaa = deg2rad(betaa);
+        $betaa = deg2rad($betaa);
 
         /* if idale >0 then        //Consideração 1 que idale seja maior que 0 para a equação não tender a infinito
             elinha = (idale+Ialecorrigido)/idale
@@ -337,6 +337,9 @@ class MainController extends Controller
         /* if betaa - 0 then
             Rd_Perez1 = 1
         end */
+        if ($betaa == 0) {
+            $Rd_Perez1 = 1;
+        }
         return $Rd_Perez1;
     }
 
@@ -486,6 +489,14 @@ class MainController extends Controller
                 if($costetas[$i][$j] < 0){
                     $costetas[$i][$j] = 0;
                 }
+                //##############################################
+                        // tetas(i,j) = acos(costetas(i,j))
+                        // tetaz(i,j) = acos(costetaz(i,j))
+                        $tetas[$i][$j]  = acos($costetas[$i][$j]);
+                        $tetaz[$i][$j]  = acos($costetaz[$i][$j]);
+                //inserir estas linhas, as funções são para radianos mesmo
+                //##############################################
+
                 //i0efetivo(i,j) = i0*e0(i)
                 $i0efetivo[$i][$j] = $i0 * $e0[$i];
                 //rr(i,j) = (1 - cosd(betaa))/2       // Gueymard
@@ -577,8 +588,13 @@ class MainController extends Controller
                 $ibale[$i][$j] = $Ialecorrigido[$i][$j] - $idale[$i][$j];
                 //ibtale(i,j)= ibale(i,j)*(costetas(i,j)/costetaz(i,j))
                 $ibtale[$i][$j] = $ibale[$i][$j] * ($costetas[$i][$j] / $costetaz[$i][$j]);
+                //####################################################
                 //fr(i,j) = Fatortransposicaoliu(betaa)  //Fator de transposição para plano inclinado Liu Jordan
-                $fr[$i][$j] = $this->Fatortransposicaoliu($inclinacao);  //Fator de transposição para plano inclinado Liu Jordan
+                // $fr[$i][$j] = $this->Fatortransposicaoliu($inclinacao);  //Fator de transposição para plano inclinado Liu Jordan
+                // comentar esta parte do programa
+                //fr(i,j) = Fatortransposicaoperez1(idale(i,j),tetaz(i,j),tetas(i,j),i0efetivo(i,j),Ialecorrigido(i,j),betaa) // Fator Perez1
+                $fr[$i][$j] = $this->transposicaoPerez1($idale[$i][$j], $tetaz[$i][$j], $tetas[$i][$j], $i0efetivo[$i][$j], $Ialecorrigido[$i][$j], $inclinacao);
+                //####################################################
                 //idtale(i,j)= idale(i,j)*fr(i,j)
                 $idtale[$i][$j] = $idale[$i][$j] * $fr[$i][$j];
                 //pale(i,j) = rr(i,j)*Ialecorrigido(i,j)*reflexao
