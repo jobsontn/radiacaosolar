@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <p>Esta ferramenta permite calcular a irradiação solar diária média mensal em kWh/m² para uma superfície com qualquer valor de inclinação e direção. Utiliza dados do 2ª Edição do Atlas Brasileiro de Energia Solar, desenvolvido pelo INPE em 2017. Esta ferramenta foi desenvolvida em 2020, a partir do plano de atividade do bolsista e aluno do Curso de Bacharelado em Engenharia Elétrica do IFPE Campus Pesqueira Klinsmann Baltazar Ramos da Silva, orientado pelo Professor Dr. Manoel Henrique de Oliveira Pedrosa Filho.</p>
+    <p>Esta ferramenta permite calcular a irradiação solar diária média mensal em Wh/m² para uma superfície com qualquer valor de inclinação e direção. Utiliza dados do 2ª Edição do Atlas Brasileiro de Energia Solar, desenvolvido pelo INPE em 2017. Esta ferramenta foi desenvolvida em 2020, a partir do plano de atividade do bolsista e aluno do Curso de Bacharelado em Engenharia Elétrica do IFPE Campus Pesqueira Klinsmann Baltazar Ramos da Silva, orientado pelo Professor Dr. Manoel Henrique de Oliveira Pedrosa Filho.</p>
     <div class="row justify-content-md-center">
         <div class="col col-lg-3 col-12 ">
             <form action="{{ route('ferramenta1_action') }}" method='GET'>
@@ -70,13 +70,13 @@
         <!-- <div class="col col-lg-8 col-12 offset-md-1"> -->
         <div class="col col-lg-8 col-12" style="padding-left: 30px;">
             @if(isset($mediadiariahorizontal))
-                <p><strong>Latitude:</strong> {{ number_format($latitude, 1, '.', '') }}</p>
-                <p><strong>Longitude:</strong> {{ number_format($longitude, 1, '.', '') }}</p>
-                <p><strong>Inclinação:</strong> {{ number_format($inclinacao, 1, '.', '') }}</p>
-                <p><strong>Orientação:</strong> {{ number_format($orientacao, 1, '.', '') }}</p>
+                <p><strong>Latitude:</strong> {{ number_format($latitude, 1, '.', '') }} °</p>
+                <p><strong>Longitude:</strong> {{ number_format($longitude, 1, '.', '') }} °</p>
+                <p><strong>Inclinação:</strong> {{ number_format($inclinacao, 1, '.', '') }} °</p>
+                <p><strong>Orientação:</strong> {{ number_format($orientacao, 1, '.', '') }} °</p>
                 <!-- <p><strong>Tempo de processamento:</strong> {{ $diff }}</p> -->
-                <p><strong>Média diária horizontal:</strong> {{ number_format($mediadiariahorizontal, 1, '.', '') }}</p>
-                <p><strong>Média diária inclinada:</strong> {{ number_format($mediadiaria, 1, '.', '') }}</p>
+                <p><strong>Média diária horizontal:</strong> {{ number_format($mediadiariahorizontal, 1, '.', '') }} Wh/m²</p>
+                <p><strong>Média diária inclinada:</strong> {{ number_format($mediadiaria, 1, '.', '') }} Wh/m²</p>
                 <div class="table-responsive d-none d-md-block">
                     <table class="table table-sm table-hover table-bordered">
                     <thead class="thead-dark">
@@ -184,7 +184,7 @@
                 },
                 //width: 850,
                 height: 300,
-                vAxis: { format: '0.0 kWh/m²' }
+                vAxis: { format: '0.0 Wh/m²' }
             };
 
             var chart = new google.charts.Line(document.getElementById('chart_div'));
