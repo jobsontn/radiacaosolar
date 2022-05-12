@@ -260,6 +260,12 @@ return [
             'route' => 'ferramenta1_form_admin',
             'icon' => 'fas fa-fw fa-sun',
         ],
+        [
+            'text'  => 'Rede Solarimétrica de Pernambuco',
+            'url'   => 'https://redesolpe.com.br',
+            'icon' => 'fas fa-fw fa-solar-panel',
+            'target' => '_blank'
+        ],
         /* [
             'text' => 'change_password',
             'url'  => 'admin/settings',

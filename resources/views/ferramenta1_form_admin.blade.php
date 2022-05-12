@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <p>Esta ferramenta permite calcular a irradiação solar diária média mensal em Wh/m² para uma superfície com qualquer valor de inclinação e direção. Utiliza dados do 2ª Edição do Atlas Brasileiro de Energia Solar, desenvolvido pelo INPE em 2017. Esta ferramenta foi desenvolvida em 2020, a partir do plano de atividade do bolsista e aluno do Curso de Bacharelado em Engenharia Elétrica do IFPE Campus Pesqueira Klinsmann Baltazar Ramos da Silva, orientado pelo Professor Dr. Manoel Henrique de Oliveira Pedrosa Filho.</p>
+    <p>Esta ferramenta permite calcular a irradiação solar diária média mensal em Wh/m² para uma superfície com qualquer valor de inclinação e direção. Utiliza dados do 2ª Edição do Atlas Brasileiro de Energia Solar, desenvolvido pelo INPE em 2017. Esta ferramenta foi desenvolvida em 2020, a partir do plano de atividade do bolsista e aluno do Curso de Bacharelado em Engenharia Elétrica do IFPE Campus Pesqueira Klinsmann Baltazar Ramos da Silva, orientado pelo Professor Dr. Manoel Henrique de Oliveira Pedrosa Filho (<a href="mailto:manoel@pesqueira.ifpe.edu.br">manoel@pesqueira.ifpe.edu.br</a>).</p>
     <div class="row justify-content-md-center">
         <div class="col col-lg-3 col-12 ">
             <form action="{{ route('ferramenta1_action') }}" method='GET'>
@@ -143,9 +143,9 @@
                     </tbody>
                     </table>
                 </div>
-                
+
                 <div class="d-none d-md-block" id="chart_div"></div>
-                
+
                 <div class="d-sm-block d-md-none" style="width: 100%; overflow: scroll">
                     <div id="chart_div2" style="width: 850px"></div>
                 </div>
@@ -159,7 +159,7 @@
 @stop
 
 @section('js')
-    @if(isset($mediadiariahorizontal))    
+    @if(isset($mediadiariahorizontal))
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         google.charts.load('current', {'packages':['line']});
